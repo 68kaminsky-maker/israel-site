@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="ישראל">
+  <defs>
+    <clipPath id="tile"><rect width="512" height="512" rx="116"/></clipPath>
+    <linearGradient id="bolt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD24D"/>
+      <stop offset="1" stop-color="#F9B914"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="512" height="512" fill="#141B4D"/>
+    <circle cx="430" cy="70" r="190" fill="#35469C" opacity=".6"/>
+    <circle cx="70" cy="470" r="120" fill="#19ABBA" opacity=".28"/>
+  </g>
+  <!-- הברק -->
+  <path d="M300 78 160 296h96l-44 138 152-228h-98z" fill="url(#bolt)" stroke="url(#bolt)" stroke-width="26" stroke-linejoin="round"/>
+</svg>

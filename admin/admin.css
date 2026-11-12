@@ -1,0 +1,155 @@
+/* אזור הניהול. בנוי בשפה של ה-DNA: כותרות כבדות, הכל עגול, צללים צבעוניים.
+   במחשב: לוח בצד שמאל, והאתר נשאר גלוי מימין כדי לראות כל שינוי מיד. בטלפון: מסך מלא. */
+.adm {
+  --a-ink: #141B4D;
+  --a-blue: #35469C;
+  --a-yellow: #F9B914;
+  --a-yellow-l: #FFD24D;
+  --a-teal: #0E7F8B;
+  --a-muted: #5A6390;
+  --a-line: #DCE1F3;
+  --a-surface: #F4F6FC;
+  --a-wa: #25D366;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  background: var(--a-surface);
+  color: var(--a-ink);
+  font-family: 'Heebo', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  overflow: hidden;
+}
+.adm *, .adm *::before, .adm *::after { box-sizing: border-box; }
+.adm h1, .adm h2, .adm h3 { font-family: 'Rubik', 'Heebo', sans-serif; font-weight: 900; margin: 0; line-height: 1.1; }
+.adm p { margin: 0; }
+:where(.adm) :where(button, input, select, textarea) { font: inherit; color: inherit; }
+
+/* כפתורים */
+.adm-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 10px 22px; border: 0; border-radius: 999px; font-weight: 800; cursor: pointer; text-decoration: none; white-space: nowrap; transition: transform .15s, box-shadow .15s; }
+.adm-btn:hover { transform: translateY(-1px); }
+.adm-btn:disabled { opacity: .5; cursor: default; transform: none; }
+.adm-btn--sm { min-height: 40px; padding: 8px 16px; font-size: 14px; }
+.adm-btn--wide { width: 100%; }
+.adm-btn--yellow { color: var(--a-ink); background: linear-gradient(135deg, var(--a-yellow-l), var(--a-yellow)); box-shadow: 0 8px 18px rgb(249 185 20 / .35); }
+.adm-btn--blue { color: #fff; background: linear-gradient(135deg, #4256B8, #1A2366); }
+.adm-btn--wa { color: #fff; background: var(--a-wa); }
+.adm-btn--ghost { color: #fff; background: rgb(255 255 255 / .12); border: 2px solid rgb(255 255 255 / .4); }
+.adm-btn--ghost-dark { color: var(--a-ink); background: #fff; border: 2px solid var(--a-line); }
+.adm-link { background: none; border: 0; padding: 4px; font-weight: 700; color: var(--a-teal); cursor: pointer; text-decoration: none; }
+.adm-link--danger { color: #B42318; }
+
+/* כותרת עליונה */
+.adm-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 20px; color: #fff; background: var(--a-ink); }
+.adm-top__brand { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #D9DEF5; }
+.adm-top__brand b { font-family: 'Rubik', sans-serif; font-weight: 900; font-size: 20px; color: #fff; }
+.adm-top__mark { width: 12px; height: 12px; border-radius: 50%; background: var(--a-yellow); box-shadow: 0 0 0 4px rgb(249 185 20 / .25); }
+.adm-top__actions { display: flex; gap: 8px; }
+
+.adm-demo { padding: 10px 20px; font-size: 14px; background: #FFF4CC; border-bottom: 1px solid #F5DD8A; }
+
+/* גוף */
+.adm-body { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.adm-tabs { display: flex; gap: 6px; padding: 12px 16px; overflow-x: auto; background: #fff; border-bottom: 1px solid var(--a-line); }
+.adm-tab { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border: 2px solid var(--a-line); border-radius: 999px; background: #fff; font-weight: 700; color: var(--a-blue); cursor: pointer; white-space: nowrap; }
+.adm-tab--on { color: var(--a-ink); border-color: var(--a-yellow); background: #FFF6D6; }
+.adm-tab__count:not(:empty) { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; display: inline-grid; place-items: center; font-size: 12px; font-weight: 800; color: #fff; background: #E5484D; }
+.adm-main { flex: 1; overflow-y: auto; padding: 22px 18px 120px; }
+
+.adm-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 18px; }
+.adm-head h2 { font-size: 30px; }
+.adm-head p { margin-top: 6px; color: var(--a-muted); }
+
+.adm-card { background: #fff; border-radius: 22px; box-shadow: 0 14px 34px rgb(26 35 102 / .08); }
+.adm-empty { padding: 40px 10px; text-align: center; color: var(--a-muted); }
+
+/* פניות */
+.adm-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.adm-stat { padding: 14px; border-radius: 18px; background: #fff; text-align: center; box-shadow: 0 8px 20px rgb(26 35 102 / .06); }
+.adm-stat b { display: block; font-family: 'Rubik', sans-serif; font-weight: 900; font-size: 32px; line-height: 1; }
+.adm-stat span { font-size: 13px; font-weight: 700; color: var(--a-muted); }
+.adm-stat--0 b { color: #E5484D; }
+.adm-stat--1 b { color: #C98A00; }
+.adm-stat--2 b { color: var(--a-teal); }
+.adm-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.adm-chip { padding: 7px 16px; border: 2px solid var(--a-line); border-radius: 999px; background: #fff; font-weight: 700; color: var(--a-blue); cursor: pointer; }
+.adm-chip--on { color: var(--a-ink); border-color: var(--a-yellow); background: var(--a-yellow); }
+.adm-leads { display: grid; gap: 12px; }
+.adm-lead { padding: 18px; border-inline-start: 6px solid var(--a-line); }
+.adm-lead--0 { border-inline-start-color: #E5484D; }
+.adm-lead--1 { border-inline-start-color: var(--a-yellow); }
+.adm-lead--2 { border-inline-start-color: var(--a-teal); opacity: .82; }
+.adm-lead__head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.adm-lead__head b { font-family: 'Rubik', sans-serif; font-weight: 900; font-size: 19px; }
+.adm-lead__head time { margin-inline-start: auto; font-size: 13px; color: var(--a-muted); }
+.adm-pill { padding: 3px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; color: var(--a-blue); background: #EEF1FB; }
+.adm-lead__msg { margin-top: 8px; color: #3A4270; }
+.adm-lead__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+.adm-select { min-height: 40px; padding: 6px 14px; border: 2px solid var(--a-line); border-radius: 999px; background: #fff; font-weight: 700; cursor: pointer; }
+
+/* שדות */
+.adm-group { margin-bottom: 12px; overflow: hidden; }
+.adm-group summary { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; cursor: pointer; list-style: none; }
+.adm-group summary::-webkit-details-marker { display: none; }
+.adm-group summary b { font-family: 'Rubik', sans-serif; font-weight: 900; font-size: 18px; }
+.adm-group summary span { font-size: 13px; color: var(--a-muted); }
+.adm-group__body { display: grid; gap: 14px; padding: 4px 20px 20px; }
+.adm-group--flat { display: grid; gap: 14px; padding: 20px; }
+.adm-group--flat h3 { font-size: 19px; }
+.adm-field { display: grid; gap: 6px; }
+.adm-field > span { font-size: 14px; font-weight: 700; color: var(--a-muted); }
+.adm-field__row { display: flex; gap: 8px; align-items: flex-start; }
+.adm-field input, .adm-field textarea { width: 100%; padding: 11px 14px; border: 2px solid var(--a-line); border-radius: 14px; background: #fff; }
+.adm-field textarea { resize: vertical; min-height: 64px; }
+.adm-field input:focus, .adm-field textarea:focus, .adm-select:focus { outline: none; border-color: var(--a-yellow); box-shadow: 0 0 0 4px rgb(249 185 20 / .2); }
+.adm-reset { flex: none; width: 40px; height: 44px; border: 2px solid var(--a-line); border-radius: 12px; background: #fff; color: var(--a-muted); font-size: 18px; cursor: pointer; }
+.adm-reset:hover { color: var(--a-ink); border-color: var(--a-ink); }
+.adm-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--a-yellow); vertical-align: middle; }
+
+/* תמונות */
+.adm-images { display: grid; gap: 14px; }
+.adm-image { padding: 16px; display: grid; gap: 10px; }
+.adm-image b { font-family: 'Rubik', sans-serif; font-weight: 900; font-size: 18px; }
+.adm-image p { font-size: 14px; color: var(--a-muted); }
+.adm-image__preview { display: grid; place-items: center; aspect-ratio: 16 / 10; border-radius: 16px; overflow: hidden; color: var(--a-muted); background: repeating-conic-gradient(#EEF1FB 0 25%, #fff 0 50%) 0 0 / 22px 22px; }
+.adm-image__preview img { width: 100%; height: 100%; object-fit: cover; }
+.adm-image__preview--logo img { object-fit: contain; padding: 20px; }
+.adm-image__actions { display: flex; align-items: center; gap: 10px; }
+
+/* צבעים */
+.adm-colors { display: grid; gap: 10px; }
+.adm-color { display: flex; align-items: center; gap: 12px; font-weight: 700; }
+.adm-color input { width: 52px; height: 44px; padding: 3px; border: 2px solid var(--a-line); border-radius: 12px; background: #fff; cursor: pointer; }
+.adm-color span { flex: 1; }
+
+/* שורת שמירה */
+.adm-save { position: absolute; bottom: 16px; left: 16px; right: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px 12px 22px; border-radius: 999px; color: #fff; background: var(--a-ink); box-shadow: 0 16px 36px rgb(20 27 77 / .35); }
+.adm-save[hidden] { display: none; }
+.adm-save span { font-weight: 700; }
+.adm-save div { display: flex; gap: 8px; }
+
+/* הודעה קופצת */
+.adm-toast { position: absolute; top: 76px; left: 50%; transform: translate(-50%, -20px); padding: 10px 22px; border-radius: 999px; font-weight: 700; color: #fff; background: var(--a-teal); box-shadow: 0 12px 26px rgb(14 127 139 / .35); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; }
+.adm-toast--on { opacity: 1; transform: translate(-50%, 0); }
+.adm-toast--bad { background: #B42318; }
+
+/* כניסה */
+.adm-login { flex: 1; display: grid; place-items: center; padding: 20px; background: radial-gradient(800px 400px at 80% 0%, #2A3680, transparent 60%), var(--a-ink); }
+.adm-login__card { width: min(420px, 100%); display: grid; gap: 14px; padding: 32px 28px; text-align: center; }
+.adm-login__card h1 { font-size: 34px; }
+.adm-login__card p { color: var(--a-muted); }
+.adm-login__card .adm-field { text-align: right; }
+.adm-login__note { min-height: 1.5em; font-weight: 700; color: var(--a-teal) !important; }
+.adm-login .adm-empty { color: #D9DEF5; }
+.adm-badge { justify-self: center; padding: 5px 14px; border-radius: 999px; font-size: 13px; font-weight: 800; color: var(--a-ink); background: var(--a-yellow); }
+
+/* מחשב: לוח בצד שמאל, האתר גלוי מימין */
+@media (min-width: 1100px) {
+  .adm { inset: 0 auto 0 0; width: 600px; box-shadow: 20px 0 50px rgb(20 27 77 / .25); }
+  html.adm-open body { margin-left: 600px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .adm-btn, .adm-toast { transition: none; }
+}
