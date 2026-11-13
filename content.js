@@ -79,7 +79,7 @@
         if (logo && el.classList.contains('logo__img')) logo.classList.toggle('logo--has-img', Boolean(v));
       });
     }
-    // קישורי טלפון ווואטסאפ נבנים מהמספרים שבתוכן
+    // קישורי טלפון ווואצאפ נבנים מהמספרים שבתוכן
     const phone = current('contact.phone');
     const wa = current('contact.whatsapp') || phone;
     const msg = current('contact.wa_message');
@@ -153,7 +153,7 @@
         form.querySelector('.lead__done').hidden = false;
       } catch {
         button.disabled = false;
-        say('משהו השתבש. אפשר להתקשר או לשלוח וואטסאפ, ונחזור אליכם.', true);
+        say('משהו השתבש. אפשר להתקשר או לשלוח וואצאפ, ונחזור אליכם.', true);
       }
     });
   }
@@ -164,7 +164,7 @@
     try { Object.assign(state, await loadContent()); } catch { /* נשארים עם התוכן המקורי */ }
     apply(state);
     setupForm();
-    // באתר חי שעוד לא מחובר לענן, פנייה לא תגיע לבעל האתר. לכן מסתירים את הטופס עד החיבור, ונשארים עם וואטסאפ, טלפון ומייל.
+    // באתר חי שעוד לא מחובר לענן, פנייה לא תגיע לבעל האתר. לכן מסתירים את הטופס עד החיבור, ונשארים עם וואצאפ, טלפון ומייל.
     const host = location.hostname;
     const local = !host || host === 'localhost' || host === '127.0.0.1';
     if (!LIVE && !local) document.documentElement.classList.add('no-form');

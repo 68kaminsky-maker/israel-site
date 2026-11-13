@@ -353,7 +353,7 @@
     const phone = phones[0] ? r[phones[0].id] : relPhones[0];
     const email = t.fields.find(f => f.type === 'email' && r[f.id]);
     const actions = [];
-    if (phone) { actions.push(`<a class="action" href="tel:+${intl(phone)}">${icon('phone')}חיוג</a>`); actions.push(`<a class="action action--wa" href="https://wa.me/${intl(phone)}" target="_blank" rel="noopener">${icon('chat')}וואטסאפ</a>`); }
+    if (phone) { actions.push(`<a class="action" href="tel:+${intl(phone)}">${icon('phone')}חיוג</a>`); actions.push(`<a class="action action--wa" href="https://wa.me/${intl(phone)}" target="_blank" rel="noopener">${icon('chat')}וואצאפ</a>`); }
     if (email) actions.push(`<a class="action" href="mailto:${esc(r[email.id])}">${icon('mail')}מייל</a>`);
     actions.push(`<a class="action" href="#/t/${t.id}/${esc(r.id)}/edit">${icon('edit')}עריכה</a>`);
     const shown = t.fields.filter(f => f.id !== t.title && f.id !== (sf && sf.id) && r[f.id] !== '' && r[f.id] != null);

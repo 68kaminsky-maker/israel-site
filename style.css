@@ -454,7 +454,7 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 .footer__admin { display: inline-flex; align-items: center; min-height: 44px; margin-block: -12px; opacity: .6; }
 .footer__admin:hover { opacity: 1; }
 
-/* ---------- וואטסאפ צף ---------- */
+/* ---------- וואצאפ צף ---------- */
 .wa-float { position: fixed; left: 18px; bottom: 18px; z-index: 60; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%; color: #fff; background: var(--wa); box-shadow: 0 10px 26px rgb(37 211 102 / .45); }
 .wa-float svg { width: 28px; height: 28px; }
 .wa-float::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--wa); opacity: .45; animation: pulse 2.4s ease-out infinite; z-index: -1; }

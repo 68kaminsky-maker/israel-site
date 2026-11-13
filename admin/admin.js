@@ -305,7 +305,7 @@
               ${l.message ? `<p class="adm-lead__msg">${esc(l.message)}</p>` : ''}
               <div class="adm-lead__foot">
                 <a class="adm-btn adm-btn--blue adm-btn--sm" href="tel:+${S.intl(l.phone)}" dir="ltr">${esc(l.phone)}</a>
-                <a class="adm-btn adm-btn--wa adm-btn--sm" href="https://wa.me/${S.intl(l.phone)}" target="_blank" rel="noopener">וואטסאפ</a>
+                <a class="adm-btn adm-btn--wa adm-btn--sm" href="https://wa.me/${S.intl(l.phone)}" target="_blank" rel="noopener">וואצאפ</a>
                 <select class="adm-select" data-status="${esc(l.id)}" aria-label="סטטוס">
                   ${STATUSES.map(s => `<option ${s === l.status ? 'selected' : ''}>${s}</option>`).join('')}
                 </select>
@@ -453,7 +453,7 @@
     const seo = pick(['seo.title', 'seo.description']);
     const colors = [['theme.ink', 'צבע כהה (רקעים וכותרות)'], ['theme.blue', 'צבע משני'], ['theme.yellow', 'צבע הדגשה (כפתורים)'], ['theme.teal', 'צבע הדגשה משני']];
     main.innerHTML = `
-      <div class="adm-head"><div><h2>פרטי קשר וצבעים</h2><p>הטלפון והוואטסאפ מתעדכנים בכל הכפתורים באתר.</p></div></div>
+      <div class="adm-head"><div><h2>פרטי קשר וצבעים</h2><p>הטלפון והוואצאפ מתעדכנים בכל הכפתורים באתר.</p></div></div>
       <section class="adm-card adm-group adm-group--flat"><h3>פרטי העסק</h3>${contact.map(fieldHtml).join('')}</section>
       <section class="adm-card adm-group adm-group--flat"><h3>גוגל ושיתוף</h3>${seo.map(fieldHtml).join('')}</section>
       <section class="adm-card adm-group adm-group--flat"><h3>צבעים</h3>
