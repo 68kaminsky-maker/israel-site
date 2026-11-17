@@ -247,6 +247,8 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 .service__icon svg { width: 26px; height: 26px; }
 .service h3 { font-size: 30px; color: #fff; }
 .service p { margin-top: 10px; font-size: 17px; color: var(--on-dark); }
+.service .service__price { margin-top: 14px; font-family: var(--font-head); font-size: 20px; font-weight: 800; color: var(--yellow); }
+.service .service__price:empty { display: none; }
 .service__link { display: inline-flex; align-items: center; align-self: flex-start; min-height: 44px; margin-top: auto; padding-top: 12px; font-weight: 800; color: var(--yellow); }
 .service__link:hover { color: var(--yellow-l); }
 
