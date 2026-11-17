@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0C0C0F">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://oorrpidiljomwsbtesnu.supabase.co; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>פתיחת שער</title>
+  <link rel="icon" href="favicon.png" type="image/png" sizes="48x48">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest-open.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="פתיחת שער">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Rubik:wght@800;900&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#0C0C0F; --card:#18181D; --text:#F4F4F6; --muted:#A3A3B0; --accent:#F9B914; --green:#34D399; --red:#F87171; --yellow:#FBBF24; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--ink); color: var(--text); font-family: Heebo, system-ui, sans-serif; font-size: 16px; }
+    main { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; padding: 24px 16px calc(24px + env(safe-area-inset-bottom)); max-width: 440px; margin: 0 auto; gap: 20px; }
+    .badge { width: 72px; height: 72px; border-radius: 22px; background: var(--accent); color: #111; display: grid; place-items: center; }
+    .badge svg { width: 40px; height: 40px; }
+    h1 { font-family: Rubik, Heebo, sans-serif; font-weight: 900; font-size: 2.4rem; line-height: 1.1; margin: 0; }
+    p.sub { margin: 0; color: var(--muted); font-size: 1.05rem; }
+    form { display: grid; gap: 14px; }
+    label { font-weight: 700; }
+    input { width: 100%; min-height: 72px; border-radius: 20px; border: 2px solid #2A2A33; background: var(--card); color: var(--text); font: 800 2rem Rubik, Heebo, sans-serif; letter-spacing: .5em; text-align: center; padding: 0 12px; direction: ltr; }
+    input:focus { outline: 3px solid var(--accent); border-color: transparent; }
+    button { min-height: 72px; border: 0; border-radius: 20px; background: var(--accent); color: #111; font: 800 1.4rem Heebo, sans-serif; cursor: pointer; }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+    button:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    .result { min-height: 76px; border-radius: 20px; padding: 16px 18px; background: var(--card); display: none; align-items: center; gap: 12px; font-weight: 700; font-size: 1.15rem; }
+    .result.show { display: flex; }
+    .result.ok { background: rgba(52,211,153,.15); color: var(--green); }
+    .result.bad { background: rgba(248,113,113,.15); color: var(--red); }
+    .result.warn { background: rgba(251,191,36,.15); color: var(--yellow); }
+    .result small { display: block; font-weight: 400; color: var(--muted); font-size: 1rem; margin-top: 2px; }
+    footer { color: var(--muted); font-size: .9rem; text-align: center; }
+    .note { background: rgba(249,185,20,.12); color: var(--accent); border-radius: 14px; padding: 12px 14px; font-size: 1rem; line-height: 1.4; }
+    .demo { background: #2A2A33; color: var(--muted); border-radius: 12px; padding: 8px 12px; font-size: .9rem; text-align: center; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V8l9-4 9 4v12"/><path d="M3 20h18M7 20v-7h10v7M7 15h10"/></svg>
+    </div>
+    <div>
+      <h1>פתיחת שער</h1>
+      <p class="sub">מקלידים את הקוד האישי שלך, והשער נפתח.</p>
+    </div>
+    <div class="demo" id="demo" hidden>מצב הדגמה: השער לא מחובר עדיין. אפשר לנסות עם קוד מהרשימה בסוכנים.</div>
+    <form id="f" autocomplete="off">
+      <label for="code">הקוד שלך</label>
+      <input id="code" name="code" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" placeholder="••••" required>
+      <button id="go" type="submit">פתח את השער</button>
+    </form>
+    <div class="result" id="res" role="status" aria-live="polite"><span id="ico" aria-hidden="true"></span><div><span id="msg"></span><small id="det"></small></div></div>
+    <div class="note" id="note" hidden>הקוד שלך נשמר בטלפון הזה. שמור אותו גם בנפרד, כי תצטרך אותו בכל כניסה, למשל אם תחליף טלפון.</div>
+    <footer>השער נפתח רק למי שקיבל קוד. כל ניסיון נרשם.</footer>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="blueprint.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    const CFG = window.APP_CONFIG || {};
+    const BP = window.BLUEPRINT;
+    const STORE_KEY = 'lazy-app:' + BP.id;
+    const $ = id => document.getElementById(id);
+    // text/plain בכוונה: בקשה פשוטה בלי בדיקת CORS מקדימה. שגיאה לא משפיעה על השער
+    function report(event) { return;
+      try { fetch(MANAGER, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ app: 'שער גרוזלם', event }), keepalive: true }).catch(() => {}); } catch (e) { /* לא קריטי */ }
+    }
+    const code = $('code'), go = $('go'), res = $('res');
+    if (!CFG.gateEndpoint) $('demo').hidden = false;
+
+    // ---- בדיקת הקוד (מצב הדגמה: מול הנתונים שבדפדפן. במצב אמיתי הבדיקה נעשית בשרת) ----
+    const toMin = s => { const m = String(s || '').match(/^(\d{1,2}):(\d{2})$/); return m ? (+m[1]) * 60 + (+m[2]) : null; };
+    function dayAllowed(rule, day) {
+      if (rule === 'ימים א׳–ה׳') return day >= 0 && day <= 4;
+      if (rule === 'ימים א׳–ו׳') return day >= 0 && day <= 5;
+      return true;
+    }
+    function withinHours(from, to, now) {
+      const a = toMin(from), b = toMin(to);
+      if (a == null || b == null) return true;
+      const n = now.getHours() * 60 + now.getMinutes();
+      return a <= b ? (n >= a && n <= b) : (n >= a || n <= b);
+    }
+    function load() {
+      try { const s = JSON.parse(localStorage.getItem(STORE_KEY)); if (s && s.rows) return s; } catch (e) { /* ריק */ }
+      const rows = {};
+      const rel = (v, type) => v; // בלי דוגמאות יחסיות: נטען רק הסוכנים
+      rows.agents = (BP.samples.agents || []).map(a => ({ ...a }));
+      rows.log = [];
+      return { rows, settings: {} };
+    }
+    function writeLog(agentName, result, note) {
+      try {
+        const s = load();
+        (s.rows.log = s.rows.log || []).unshift({ id: crypto.randomUUID(), agentName, result, when: new Date().toISOString(), note, created_at: new Date().toISOString() });
+        localStorage.setItem(STORE_KEY, JSON.stringify(s));
+      } catch (e) { /* לא קריטי */ }
+    }
+    function checkLocal(entered) {
+      const now = new Date();
+      const agent = (load().rows.agents || []).find(a => String(a.code).trim() === entered);
+      if (!agent) { writeLog('לא מזוהה', 'נדחה', 'קוד שגוי: ' + entered); return { ok: false, kind: 'bad', msg: 'הקוד לא נכון', det: 'בדוק שוב, או פנה למי שנתן לך אותו.' }; }
+      if (agent.status !== 'פעיל') { writeLog(agent.name, 'נדחה', 'הקוד ' + agent.status); return { ok: false, kind: 'bad', msg: 'הקוד לא פעיל כרגע', det: 'פנה למי שנתן לך אותו.' }; }
+      if (!dayAllowed(agent.days, now.getDay()) || !withinHours(agent.from, agent.to, now)) {
+        writeLog(agent.name, 'מחוץ לשעות', `מותר ${agent.days || ''} ${agent.from || ''}–${agent.to || ''}`);
+        return { ok: false, kind: 'warn', msg: 'עכשיו לא בשעות שלך', det: `מותר ${agent.days || 'כל הימים'}, ${agent.from || ''}–${agent.to || ''}` };
+      }
+      writeLog(agent.name, 'נפתח', 'דף הסוכנים');
+      return { ok: true, kind: 'ok', msg: `השער נפתח, ${agent.name.split(' ')[0]}`, det: 'נסיעה טובה.' };
+    }
+
+    // ---- הגנה מניחושים: אחרי 5 טעויות, נעילה של דקה ----
+    const LOCK_KEY = 'gate-lock';
+    function lockLeft() { try { const t = +localStorage.getItem(LOCK_KEY) || 0; return Math.max(0, Math.ceil((t - Date.now()) / 1000)); } catch (e) { return 0; } }
+    let fails = 0;
+
+    function show(kind, msg, det) {
+      res.className = 'result show ' + kind;
+      $('ico').textContent = kind === 'ok' ? '✔' : kind === 'warn' ? '!' : '✖';
+      $('msg').textContent = msg;
+      // שעות כמו 04:30–07:00 מתהפכות בעברית, לכן כותבים "בין 04:30 ל-07:00"
+      $('det').textContent = String(det || '').replace(/(\d{1,2}:\d{2})\s*–\s*(\d{1,2}:\d{2})/g, 'בין $1 ל-$2');
+    }
+
+    $('f').addEventListener('submit', async e => {
+      e.preventDefault();
+      const entered = code.value.replace(/\D/g, '');
+      if (entered.length < 4) { show('bad', 'הקוד קצר מדי', 'צריך 4 עד 6 ספרות.'); return; }
+      const wait = lockLeft();
+      if (wait) { show('warn', 'נסיונות רבים מדי', `נסה שוב בעוד ${wait} שניות.`); return; }
+      go.disabled = true; go.textContent = 'פותח…';
+      try {
+        let out;
+        if (CFG.gateEndpoint) {
+          const r = await fetch(CFG.gateEndpoint, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ code: entered }) });
+          const j = await r.json().catch(() => ({}));
+          out = r.ok && j.ok ? { ok: true, kind: 'ok', msg: j.msg || 'השער נפתח', det: j.det || '' } : { ok: false, kind: j.kind || 'bad', msg: j.msg || 'לא הצלחתי לפתוח', det: j.det || '' };
+        } else {
+          await new Promise(r => setTimeout(r, 600));
+          out = checkLocal(entered);
+        }
+        show(out.kind, out.msg, out.det);
+        // דיווח למנהל האפליקציות: רק פתיחה או קוד שגוי, בלי שם הסוכן ובלי כתובת IP
+        if (out.ok) { fails = 0; code.value = ''; if (navigator.vibrate) navigator.vibrate(120); }
+        else if (out.kind === 'bad' && ++fails >= 5) { try { localStorage.setItem(LOCK_KEY, String(Date.now() + 60000)); } catch (e2) { /* ריק */ } fails = 0; }
+      } catch (err) {
+        show('bad', 'אין חיבור כרגע', 'בדוק קליטה ונסה שוב.');
+      }
+      go.disabled = false; go.textContent = 'פתח את השער';
+    });
+    // קישור אישי: הקוד מגיע אחרי # (לא נשלח לשרת), נשמר בטלפון, והסוכן רק לוחץ על הכפתור
+    const m = location.hash.match(/c=(\d{4,6})/);
+    try {
+      if (m) { localStorage.setItem('gate-code', m[1]); history.replaceState(null, '', location.pathname); }
+      code.value = localStorage.getItem('gate-code') || '';
+    } catch (e) { if (m) code.value = m[1]; }
+    if (code.value) { $('note').hidden = false; go.focus(); } else code.focus();
+  })();
+  </script>
+</body>
+</html>
